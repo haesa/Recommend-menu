@@ -1,8 +1,6 @@
-import { useState } from 'react';
 
-export default function Button({ filter }) {
-  const [isSelected, setIsSelected] = useState(false);
+export default function Button({ filter, onClick }) {
   return (
-    <button onClick={() => setIsSelected((prev) => !prev)}>{filter}</button>
+    <button onClick={() => onClick(filter)}>{filter}</button>
   );
 }
