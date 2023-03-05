@@ -1,6 +1,3 @@
-
-export default function Button({ filter, onClick }) {
-  return (
-    <button onClick={() => onClick(filter)}>{filter}</button>
-  );
+export default function Button({ category, onClick }) {
+  return <button onClick={() => onClick(category)}>{category}</button>;
 }

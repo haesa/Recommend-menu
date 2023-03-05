@@ -1,3 +1,6 @@
-export default function getRandomInt(length, count = 1) {
-  return Math.floor(Math.random() * length);
+export default function getRandomRastaurant(list) {
+  const restaurants = Object.keys(list);
+  const index = Math.floor(Math.random() * restaurants.length);
+  const name = restaurants[index];
+  return list[name];
 }
