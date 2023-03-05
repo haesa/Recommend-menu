@@ -4,6 +4,7 @@ import Button from './Button';
 export default function Restaurant({ restaurant }) {
   const { title, img, link, address } = restaurant;
   const handleClick = () => window.open(link);
+
   return (
     <div>
       <img src={img} alt={title} />

@@ -1,37 +1,42 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import Categories from './components/Categories';
+import Filter from './components/Filter';
 import Restaurant from './components/Restaurant';
-import DropBox from './DropBox';
 import getRandomRastaurant from './service/Random';
-import useFilter from './service/use-filter';
-
-const initial = {
-  filter: localStorage.getItem('filter') ?? '한',
-  univ: localStorage.getItem('univ') ?? '숙명여대',
-};
 
 function App() {
-  const [filter, setFilter] = useState(initial.filter);
-  const [univ, setUniv] = useState(initial.univ);
-  const [loading, list] = useFilter(univ, filter);
+  const [list, setList] = useState({});
+  const [loading, setLoading] = useState(undefined);
   const [restaurant, setRestaurant] = useState({});
-  const handleFilter = (current) => setFilter(current);
-  const handleUniv = (current) => setUniv(current);
 
-  useEffect(() => {
-    localStorage.setItem('filter', filter);
-    localStorage.setItem('univ', univ);
-  }, [filter, univ]);
+  const filtering = ({ university, groups }) => {
+    const filters = groups.filter((group) => group.select);
+    setLoading(true);
+    setList({});
 
-  useEffect(() => {
-    loading === false && setRestaurant(getRandomRastaurant(list));
-  }, [list]);
+    filters.forEach((filter) => {
+      fetch(
+        `https://recommend-menu-default-rtdb.firebaseio.com/${university}.json?orderBy="category"&equalTo="${filter.text}"&print=pretty`,
+      )
+        .then((response) => response.json())
+        .then((data) => setList((prev) => ({ ...prev, ...data })))
+        .catch((error) => console.log(error))
+        .finally(
+          () => filter === filters[filters.length - 1] && setLoading(false),
+        );
+    });
+  };
+
+  loading === false && console.log(list);
+
+  useEffect(() => setRestaurant(getRandomRastaurant(list)), [list]);
+
+  console.log(restaurant);
 
   return (
     <>
-      <DropBox univ={univ} handleUniv={handleUniv} />
-      <Categories handleFilter={handleFilter} />
+      <Filter filtering={filtering} />
+      {/* {filters === [] && <p>필터를 선택하세요</p>} */}
       {loading ? <p>Loading...</p> : <Restaurant restaurant={restaurant} />}
     </>
   );
