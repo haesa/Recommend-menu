@@ -27,17 +27,17 @@ function App() {
     });
   };
 
-  loading === false && console.log(list);
-
-  useEffect(() => setRestaurant(getRandomRastaurant(list)), [list]);
-
-  console.log(restaurant);
+  useEffect(() => {
+    if (loading === false) setRestaurant(getRandomRastaurant(list));
+  }, [list]);
 
   return (
     <>
       <Filter filtering={filtering} />
-      {/* {filters === [] && <p>필터를 선택하세요</p>} */}
-      {loading ? <p>Loading...</p> : <Restaurant restaurant={restaurant} />}
+      {loading && <p>Loading...</p>}
+      {Object.keys(restaurant).length !== 0 && (
+        <Restaurant restaurant={restaurant} />
+      )}
     </>
   );
 }
