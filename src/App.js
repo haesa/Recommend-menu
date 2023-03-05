@@ -38,5 +38,3 @@ function App() {
 }
 
 export default App;
-
-// 새로고침 시에도 상태 기억하기
