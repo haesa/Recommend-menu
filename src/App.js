@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import Category from './components/Category';
+import Categories from './components/Categories';
 import Restaurant from './components/Restaurant';
 import DropBox from './DropBox';
 import getRandomRastaurant from './service/Random';
@@ -31,7 +31,7 @@ function App() {
   return (
     <>
       <DropBox univ={univ} handleUniv={handleUniv} />
-      <Category handleFilter={handleFilter} />
+      <Categories handleFilter={handleFilter} />
       {loading ? <p>Loading...</p> : <Restaurant restaurant={restaurant} />}
     </>
   );

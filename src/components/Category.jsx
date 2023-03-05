@@ -1,23 +1,3 @@
-import React from 'react';
-import Button from './Button';
-
-const categories = [
-  '한',
-  '중',
-  '일',
-  '분식 및 김밥 전문',
-  '치킨 전문',
-  '서양',
-  '그외 기타',
-  '피자, 햄버거, 샌드위치 및 유사',
-];
-
-export default function Category({ handleFilter }) {
-  return (
-    <div>
-      {categories.map((category, index) => (
-        <Button key={index} category={category} onClick={handleFilter} />
-      ))}
-    </div>
-  );
+export default function Category({ category, onClick }) {
+  return <button onClick={() => onClick(category)}>{category}</button>;
 }

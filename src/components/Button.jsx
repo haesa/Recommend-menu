@@ -1,3 +1,5 @@
-export default function Button({ category, onClick }) {
-  return <button onClick={() => onClick(category)}>{category}</button>;
+import React from 'react';
+
+export default function Button({ text, handleClick }) {
+  return <button onClick={handleClick}>{text}</button>;
 }
