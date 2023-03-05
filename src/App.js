@@ -29,6 +29,3 @@ function App() {
 }
 
 export default App;
-
-// 1. DB에서 필터에 맞게 데이터 가져오기 (OK!)
-// 2. 랜덤 추첨 기능 (OK!)
