@@ -6,14 +6,23 @@ import DropBox from './DropBox';
 import getRandomRastaurant from './service/Random';
 import useFilter from './service/use-filter';
 
-const univs = ['숙명여자대학교', '중앙대학교', '홍익대학교'];
+const initial = {
+  filter: localStorage.getItem('filter') ?? '한',
+  univ: localStorage.getItem('univ') ?? '숙명여대',
+};
 
 function App() {
-  const [filter, setFilter] = useState('한');
-  const [univ, setUniv] = useState('숙명여대');
+  const [filter, setFilter] = useState(initial.filter);
+  const [univ, setUniv] = useState(initial.univ);
   const [loading, list] = useFilter(univ, filter);
   const [restaurant, setRestaurant] = useState({});
   const handleFilter = (current) => setFilter(current);
+  const handleUniv = (current) => setUniv(current);
+
+  useEffect(() => {
+    localStorage.setItem('filter', filter);
+    localStorage.setItem('univ', univ);
+  }, [filter, univ]);
 
   useEffect(() => {
     loading === false && setRestaurant(getRandomRastaurant(list));
@@ -21,7 +30,7 @@ function App() {
 
   return (
     <>
-      <DropBox univs={univs} />
+      <DropBox univ={univ} handleUniv={handleUniv} />
       <Category handleFilter={handleFilter} />
       {loading ? <p>Loading...</p> : <Restaurant restaurant={restaurant} />}
     </>
@@ -29,3 +38,5 @@ function App() {
 }
 
 export default App;
+
+// 새로고침 시에도 상태 기억하기
