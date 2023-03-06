@@ -9,18 +9,13 @@ const univs = [
 
 export default function DropBox({ univ, setFilter }) {
   const [university, setUniversity] = useState(univ);
-  const handleChange = (e) => setUniversity(e.target.value);
+  const handleChange = (e) => setUniversity(JSON.parse(e.target.value));
   useEffect(() => setFilter((prev) => ({ ...prev, university })), [university]);
 
   return (
-    <select
-      className={styles.dropBox}
-      name="univs"
-      value={university}
-      onChange={handleChange}
-    >
+    <select className={styles.dropBox} name="univs" onChange={handleChange}>
       {univs.map((univ, index) => (
-        <option key={index} value={univ.text}>
+        <option key={index} value={JSON.stringify(univ)}>
           {univ.text}
         </option>
       ))}
