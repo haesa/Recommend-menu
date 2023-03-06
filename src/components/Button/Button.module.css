@@ -1,0 +1,10 @@
+.button {
+  width: 100%;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
+  border: 1px solid black;
+  border-radius: 100px;
+  padding: 4px 0;
+  font-size: 14px;
+  background-color: white;
+  cursor: pointer;
+}

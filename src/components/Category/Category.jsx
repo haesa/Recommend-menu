@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import styles from './Category.module.css';
 
 export default function Category({ group, setFilter }) {
   const [select, setSelect] = useState(group.select);
@@ -14,5 +15,12 @@ export default function Category({ group, setFilter }) {
     [select],
   );
 
-  return <button onClick={handleToggle}>{group.text}</button>;
+  return (
+    <button
+      className={`${styles.category} ${select && styles.select}`}
+      onClick={handleToggle}
+    >
+      {group.text}
+    </button>
+  );
 }

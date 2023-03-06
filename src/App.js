@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import './App.css';
-import Filter from './components/Filter';
-import Restaurant from './components/Restaurant';
+import styles from './App.module.css';
+import Filter from './components/Filter/Filter';
+import Restaurant from './components/Restaurant/Restaurant';
 import getRandomRastaurant from './service/Random';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
 
     filters.forEach((filter) => {
       fetch(
-        `https://recommend-menu-default-rtdb.firebaseio.com/${university}.json?orderBy="category"&equalTo="${filter.text}"&print=pretty`,
+        `https://recommend-menu-default-rtdb.firebaseio.com/${university.filter}.json?orderBy="category"&equalTo="${filter.filter}"&print=pretty`,
       )
         .then((response) => response.json())
         .then((data) => setList((prev) => ({ ...prev, ...data })))
@@ -33,10 +33,14 @@ function App() {
 
   return (
     <>
+      <h1 className={styles.title}>Recommend Menu</h1>
       <Filter filtering={filtering} />
-      {loading && <p>Loading...</p>}
-      {Object.keys(restaurant).length !== 0 && (
-        <Restaurant restaurant={restaurant} />
+      {loading ? (
+        <p className={styles.loading}>Loading...</p>
+      ) : (
+        Object.keys(restaurant).length !== 0 && (
+          <Restaurant restaurant={restaurant} />
+        )
       )}
     </>
   );
